@@ -3,3 +3,6 @@ requests
 beautifulsoup4
 black
 openai
+pylint
+isort
+autoflake

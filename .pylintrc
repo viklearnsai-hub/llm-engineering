@@ -1,0 +1,4 @@
+[MESSAGES CONTROL]
+disable=trailing-whitespace,missing-module-docstring,missing-class-docstring,missing-function-docstring,too-few-public-methods
+[FORMAT]
+max-line-length=500
