@@ -1,16 +1,23 @@
 import os
 import requests
 from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv()
 
-api_key = os.getenv("OPEN_AI_API_KEY")
 
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+api_key = os.getenv("OPEN_AI_API_KEY")
+gemini_key = os.getenv("GOOGLE_API_KEY")
+
+
+client = OpenAI(base_url=GEMINI_BASE_URL, api_key=gemini_key)
 headers = {"Authorization": f"Bearer {api_key}", "Content-type": "application/json"}
 
 payload = {
     "model": "gpt-5-nano",
-    "messages": [{"role": "user", "content": "Tell me a joke"}],
+    "messages": [{"role": "user", "content": "Tell me whom am i talking to"}],
 }
 
 response = requests.post(
@@ -20,4 +27,10 @@ response = requests.post(
     timeout=30,
 )
 
-print(response.json()["choices"][0]["message"]["content"])
+print(f"Response from GPT {response.json()["choices"][0]["message"]["content"]}")
+
+gresponse = client.chat.completions.create(
+    model="gemini-2.5-flash", messages=[{"role": "user", "content": "Tell me whom am i talking to"}]
+)
+
+print(f"Response from Gemini {gresponse.choices[0].message.content}")
