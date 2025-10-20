@@ -12,7 +12,7 @@ class Website:
         self.url = url
 
     def webscrape(self):
-        response = requests.get(self.url,timeout=10)
+        response = requests.get(self.url, timeout=10)
         soup = BeautifulSoup(response.content, "html.parser")
         self.title = soup.title.string if soup.title else "No String found"
         for irrelevant in soup.body(["script", "style", "img", "input"]):
